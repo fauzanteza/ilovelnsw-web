@@ -6,34 +6,49 @@
 }
 
 :root {
-  /* Aksen kuning */
-  --makara: #f6db00;
-  --makara-deep: #d9bf00;
-  --makara-soft: #fdf5c4;
-  --on-makara: #0b0a08;
+  /* Aksen biru (dari logo) */
+  --brand-blue: #2B55C7;
+  --brand-blue-deep: #1E3FA0;
+  --brand-blue-light: #4A72E0;
+  --brand-blue-soft: #E8EEFB;
+  --brand-blue-glow: rgba(43, 85, 199, 0.15);
+
+  /* Aksen kuning/emas (dari logo) */
+  --makara: #E8A830;
+  --makara-deep: #D09420;
+  --makara-soft: #FDF5DC;
+  --makara-glow: rgba(232, 168, 48, 0.15);
+  --on-makara: #1a1000;
 
   /* Permukaan gelap */
-  --night: #0b0a08;
-  --on-night: #f6f5f0;
-  --on-night-muted: #a9a79d;
-  --night-line: rgb(255 255 255 / 0.1);
+  --night: #0F1729;
+  --night-mid: #1A2744;
+  --on-night: #F0F4FF;
+  --on-night-muted: #8B9BC0;
+  --night-line: rgba(255, 255, 255, 0.08);
 
   /* Teks & latar */
-  --fg: #121110;
-  --muted: #5d5b54;
-  --faint: #8b8980;
-  --bg: #f3f2ee;
-  --surface: #fff;
-  --sunken: #ebeae5;
-  --line: #e2e0da;
-  --line-strong: #cbc9c1;
+  --fg: #0F1729;
+  --muted: #52607A;
+  --faint: #8B95A8;
+  --bg: #F5F7FB;
+  --surface: #FFFFFF;
+  --sunken: #ECF0F7;
+  --line: #DDE3EF;
+  --line-strong: #C4CDDF;
 
-  --danger: #b42318;
-  --danger-soft: #fdecea;
-  --select: #1f5fd1;
+  --danger: #D63031;
+  --danger-soft: #FDE8E8;
+  --success: #00B894;
+  --success-soft: #E0F9F0;
+  --select: var(--brand-blue);
 
   --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
   --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+
+  --gradient-hero: linear-gradient(135deg, var(--brand-blue) 0%, #1E3FA0 40%, #4A72E0 100%);
+  --gradient-gold: linear-gradient(135deg, #E8A830 0%, #F0C060 50%, #E8A830 100%);
+  --gradient-card: linear-gradient(180deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.8) 100%);
 
   color-scheme: light;
 }
@@ -44,6 +59,7 @@ html {
   font-family: var(--font-sans);
   -webkit-font-smoothing: antialiased;
   -webkit-tap-highlight-color: transparent;
+  scroll-behavior: smooth;
 }
 
 body {
@@ -53,12 +69,12 @@ body {
 }
 
 ::selection {
-  background: var(--makara);
-  color: var(--on-makara);
+  background: var(--brand-blue);
+  color: white;
 }
 
 :focus-visible {
-  outline: 2px solid var(--select);
+  outline: 2px solid var(--brand-blue);
   outline-offset: 2px;
 }
 
@@ -70,25 +86,27 @@ html.is-sorting * {
   -webkit-user-select: none !important;
 }
 
-/* Tombol umum */
+/* ─── Tombol umum ─── */
 .btn {
   display: inline-flex;
   align-items: center;
   justify-content: center;
   gap: 0.5rem;
-  height: 2.5rem;
-  padding: 0 1rem;
-  border-radius: 999px;
+  height: 2.75rem;
+  padding: 0 1.25rem;
+  border-radius: 14px;
   font-weight: 600;
   font-size: 0.875rem;
   white-space: nowrap;
   transition:
-    background 0.15s,
-    color 0.15s,
-    border-color 0.15s,
-    transform 0.15s var(--ease-out);
+    background 0.2s,
+    color 0.2s,
+    border-color 0.2s,
+    transform 0.2s var(--ease-out),
+    box-shadow 0.2s;
   cursor: pointer;
   user-select: none;
+  border: none;
 }
 .btn:active:not(:disabled) {
   transform: scale(0.97);
@@ -98,42 +116,57 @@ html.is-sorting * {
   cursor: not-allowed;
 }
 .btn-primary {
-  background: var(--makara);
-  color: var(--on-makara);
+  background: var(--brand-blue);
+  color: white;
+  box-shadow: 0 2px 8px rgba(43, 85, 199, 0.25);
 }
 .btn-primary:hover:not(:disabled) {
-  background: var(--makara-deep);
+  background: var(--brand-blue-deep);
+  box-shadow: 0 4px 16px rgba(43, 85, 199, 0.35);
+  transform: translateY(-1px);
+}
+.btn-gold {
+  background: var(--gradient-gold);
+  color: var(--on-makara);
+  box-shadow: 0 2px 8px rgba(232, 168, 48, 0.25);
+}
+.btn-gold:hover:not(:disabled) {
+  box-shadow: 0 4px 16px rgba(232, 168, 48, 0.35);
+  transform: translateY(-1px);
 }
 .btn-dark {
   background: var(--night);
   color: var(--on-night);
 }
 .btn-dark:hover:not(:disabled) {
-  background: #2a2925;
+  background: var(--night-mid);
 }
 .btn-ghost {
   background: transparent;
   color: var(--fg);
-  border: 1px solid var(--line-strong);
+  border: 1.5px solid var(--line-strong);
 }
 .btn-ghost:hover:not(:disabled) {
   background: var(--sunken);
+  border-color: var(--brand-blue-light);
+  color: var(--brand-blue);
 }
 
 .icon-btn {
   display: inline-grid;
   place-items: center;
-  width: 2.25rem;
-  height: 2.25rem;
-  border-radius: 999px;
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 12px;
   color: var(--fg);
   transition:
-    background 0.15s,
-    transform 0.15s var(--ease-out);
+    background 0.2s,
+    transform 0.2s var(--ease-out);
   cursor: pointer;
 }
 .icon-btn:hover:not(:disabled) {
-  background: var(--sunken);
+  background: var(--brand-blue-soft);
+  color: var(--brand-blue);
 }
 .icon-btn:active:not(:disabled) {
   transform: scale(0.9);
@@ -148,11 +181,11 @@ html.is-sorting * {
   appearance: none;
   position: relative;
   flex: none;
-  width: 2.5rem;
+  width: 2.75rem;
   height: 1.5rem;
   border-radius: 999px;
   background: var(--line-strong);
-  transition: background 0.2s;
+  transition: background 0.25s;
   cursor: pointer;
 }
 .switch::after {
@@ -164,14 +197,184 @@ html.is-sorting * {
   height: calc(1.5rem - 6px);
   border-radius: 999px;
   background: #fff;
-  box-shadow: 0 1px 3px rgb(0 0 0 / 0.25);
-  transition: transform 0.25s var(--ease-spring);
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
+  transition: transform 0.3s var(--ease-spring);
 }
 .switch:checked {
-  background: var(--night);
+  background: var(--brand-blue);
 }
 .switch:checked::after {
-  transform: translateX(1rem);
+  transform: translateX(1.25rem);
+}
+
+/* ─── Animasi global ─── */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes scaleIn {
+  from {
+    opacity: 0;
+    transform: scale(0.92);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
+}
+
+@keyframes pulse-ring {
+  0% {
+    transform: scale(0.8);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(2.2);
+    opacity: 0;
+  }
+}
+
+@keyframes gradient-shift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+.animate-fade-in-up {
+  animation: fadeInUp 0.6s var(--ease-out) both;
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.5s var(--ease-out) both;
+}
+
+.animate-scale-in {
+  animation: scaleIn 0.5s var(--ease-spring) both;
+}
+
+@keyframes heartbeat {
+  0%, 100% { transform: scale(1); }
+  15% { transform: scale(1.12); }
+  30% { transform: scale(0.98); }
+  45% { transform: scale(1.08); }
+  60% { transform: scale(1); }
+}
+
+@keyframes pop {
+  0% { transform: scale(0.6); opacity: 0; }
+  60% { transform: scale(1.08); opacity: 1; }
+  100% { transform: scale(1); }
+}
+
+@keyframes wiggle {
+  0%, 100% { transform: rotate(0); }
+  25% { transform: rotate(-8deg); }
+  75% { transform: rotate(8deg); }
+}
+
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  20%, 60% { transform: translateX(-6px); }
+  40%, 80% { transform: translateX(6px); }
+}
+
+@keyframes bounce-y {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-6px); }
+}
+
+/* ─── Teks gradien (italic) ───
+   background-clip:text memotong huruf miring yang menjorok keluar kotak.
+   Padding kecil memperluas area latar agar huruf terakhir tidak terpotong. */
+.text-gradient {
+  display: inline-block;
+  padding: 0 0.14em 0.06em 0.04em;
+  margin: 0 -0.08em 0 -0.02em;
+  background: linear-gradient(120deg, var(--brand-blue) 0%, var(--brand-blue-light) 45%, var(--makara) 100%);
+  background-size: 200% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: gradient-shift 6s ease-in-out infinite;
+}
+
+/* ─── Scroll reveal (lihat lib/actions/reveal.ts) ─── */
+[data-reveal] {
+  opacity: 0;
+  transition:
+    opacity 0.7s var(--ease-out),
+    transform 0.7s var(--ease-out),
+    filter 0.7s var(--ease-out);
+  transition-delay: var(--reveal-delay, 0ms);
+  will-change: opacity, transform;
+}
+[data-reveal="up"] { transform: translateY(32px); }
+[data-reveal="down"] { transform: translateY(-32px); }
+[data-reveal="left"] { transform: translateX(-40px); }
+[data-reveal="right"] { transform: translateX(40px); }
+[data-reveal="zoom"] { transform: scale(0.9); filter: blur(4px); }
+[data-reveal].is-revealed {
+  opacity: 1;
+  transform: none;
+  filter: none;
+}
+
+/* ─── Ripple (lihat lib/actions/ripple.ts) ─── */
+.has-ripple {
+  overflow: hidden;
+  isolation: isolate;
+}
+.ripple-dot {
+  position: absolute;
+  border-radius: 50%;
+  background: currentColor;
+  opacity: 0.22;
+  transform: scale(0);
+  pointer-events: none;
+  z-index: 0;
+  animation: ripple 0.6s var(--ease-out) forwards;
+}
+@keyframes ripple {
+  to {
+    transform: scale(1);
+    opacity: 0;
+  }
+}
+
+/* ─── Transisi antar halaman (View Transitions API) ─── */
+@keyframes vt-out {
+  to { opacity: 0; transform: translateY(-12px); filter: blur(4px); }
+}
+@keyframes vt-in {
+  from { opacity: 0; transform: translateY(16px); filter: blur(4px); }
+}
+::view-transition-old(main) {
+  animation: vt-out 0.22s var(--ease-out) both;
+}
+::view-transition-new(main) {
+  animation: vt-in 0.4s var(--ease-out) both;
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -180,6 +383,11 @@ html.is-sorting * {
   *::after {
     animation-duration: 0.001ms !important;
     transition-duration: 0.001ms !important;
+  }
+  [data-reveal] {
+    opacity: 1;
+    transform: none;
+    filter: none;
   }
 }
 

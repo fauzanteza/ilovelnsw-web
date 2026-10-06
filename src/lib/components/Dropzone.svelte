@@ -47,7 +47,7 @@
     <span class="sub">
       {L("atau seret & jatuhkan ke mana saja di halaman ini. Bisa beberapa file sekaligus.", "or drag & drop anywhere on this page. Multiple files are fine.")}
     </span>
-    <span class="btn btn-dark cta"><Icon name="upload" size={16} /> {L("Pilih file", "Choose files")}</span>
+    <span class="btn btn-primary cta"><Icon name="upload" size={16} /> {L("Pilih file", "Choose files")}</span>
   </button>
 {:else}
   <button type="button" class="btn btn-ghost compact" onclick={pick} {disabled} title={L("Tambah PDF", "Add PDF")}>
@@ -66,23 +66,33 @@
     width: 100%;
     min-height: 22rem;
     padding: 3rem 1.5rem;
-    border-radius: 28px;
+    border-radius: 24px;
     border: 2px dashed var(--line-strong);
     background: var(--surface);
     text-align: center;
     cursor: pointer;
     transition:
-      border-color 0.2s,
-      background 0.2s,
-      transform 0.3s var(--ease-spring);
+      border-color 0.25s,
+      background 0.25s,
+      transform 0.35s var(--ease-spring),
+      box-shadow 0.35s;
   }
   .stage:hover,
   .stage.dragging {
-    border-color: var(--fg);
+    border-color: var(--brand-blue);
+    box-shadow: 0 0 0 4px var(--brand-blue-glow);
+  }
+  .stage:active:not(:disabled) {
+    transform: scale(0.99);
   }
   .stage.dragging {
-    background: var(--makara-soft);
+    background: var(--brand-blue-soft);
     transform: scale(1.01);
+    animation: drag-glow 1.2s ease-in-out infinite;
+  }
+  @keyframes drag-glow {
+    0%, 100% { box-shadow: 0 0 0 4px var(--brand-blue-glow); }
+    50% { box-shadow: 0 0 0 10px rgba(43, 85, 199, 0.08); }
   }
   .art {
     position: relative;
@@ -97,10 +107,10 @@
     width: 3.75rem;
     height: 4.9rem;
     margin: -2.45rem 0 0 -1.875rem;
-    border-radius: 10px;
+    border-radius: 12px;
     background: var(--surface);
-    border: 1px solid var(--line-strong);
-    box-shadow: 0 6px 18px rgb(0 0 0 / 0.08);
+    border: 1.5px solid var(--line-strong);
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.06);
     transition: transform 0.45s var(--ease-spring);
   }
   .s1 {
@@ -112,9 +122,14 @@
   .s3 {
     display: grid;
     place-items: center;
-    background: var(--makara);
-    border-color: var(--makara-deep);
-    color: var(--on-makara);
+    background: var(--brand-blue);
+    border-color: var(--brand-blue-deep);
+    color: white;
+    animation: sheet-float 3s ease-in-out infinite;
+  }
+  @keyframes sheet-float {
+    0%, 100% { translate: 0 0; }
+    50% { translate: 0 -5px; }
   }
   .stage:hover .s1,
   .stage.dragging .s1 {
@@ -128,11 +143,23 @@
   .stage.dragging .s3 {
     transform: translateY(-6px);
   }
+  .stage.dragging .s3 {
+    animation: drop-bounce 0.7s ease-in-out infinite;
+  }
+  @keyframes drop-bounce {
+    0%, 100% { translate: 0 0; }
+    50% { translate: 0 8px; }
+  }
+  .stage:hover .cta {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 18px rgba(43, 85, 199, 0.35);
+  }
   .title {
     font-family: var(--font-serif);
     font-size: 1.6rem;
     font-weight: 600;
     letter-spacing: -0.01em;
+    color: var(--fg);
   }
   .sub {
     max-width: 26rem;
